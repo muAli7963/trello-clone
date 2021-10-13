@@ -1,24 +1,23 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useFocus } from "./utils/useFocus";
 import { NewItemFormContainer, NewItemButton, NewItemInput } from "./st\
-yles"
-
-
+yles";
 
 type NewItemFormProps = {
-onAdd(text: string): void
-}
+  onAdd(text: string): void;
+};
 
 export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
-const [text, setText] = useState("")
-return (
-<NewItemFormContainer>
-<NewItemInput
-value={text}
-onChange={e => setText(e.target.value)}
-/>
-<NewItemButton onClick={() => onAdd(text)}>
-Create
-</NewItemButton>
-</NewItemFormContainer>
-)
-}
+  const [text, setText] = useState("");
+  const inputRef = useFocus();
+  return (
+    <NewItemFormContainer>
+      <NewItemInput
+        ref={inputRef}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <NewItemButton onClick={() => onAdd(text)}>Create</NewItemButton>
+    </NewItemFormContainer>
+  );
+};
